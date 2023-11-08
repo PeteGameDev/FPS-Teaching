@@ -36,3 +36,6 @@ public class Basic_Enemy : MonoBehaviour
         navAgent.destination = playerObject.transform.position;
     }
 }
+
+
+
