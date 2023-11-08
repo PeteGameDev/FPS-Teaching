@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class Player_Interaction : MonoBehaviour
 {
+    bool healthItemEquipped = false;
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.E) && healthItemEquipped == true){
+            UseHealthItem();
+        }
+    }
+
     void OnTriggerEnter(Collider other){
         if(other.CompareTag("Ammo Box")){
             gameObject.GetComponentInChildren<Raycast_Gun>().reserveAmmo += 10;
             Destroy(other.gameObject);
         }
-        if(other.CompareTag("Health Item")){
-            gameObject.GetComponent<Player_Health>().playerHealth += 10f;
+        if(other.CompareTag("Health Item") && healthItemEquipped == false){
+            healthItemEquipped = true;
             Destroy(other.gameObject);
         }
-        
-
-        //here you could add in triggers for doors etc
     }
 
     void OnTriggerStay(Collider other){
@@ -27,5 +33,10 @@ public class Player_Interaction : MonoBehaviour
         if(other.CompareTag("Spike Hazard")){
             gameObject.GetComponent<Player_Health>().playerHealth--;
         }
+    }
+
+    void UseHealthItem(){
+        gameObject.GetComponent<Player_Health>().playerHealth += 10f;
+        healthItemEquipped = false;
     }
 }
