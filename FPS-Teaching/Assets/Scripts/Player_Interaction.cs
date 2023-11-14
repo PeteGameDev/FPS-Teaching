@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_Interaction : MonoBehaviour
 {
     bool healthItemEquipped = false;
+    public GameObject healthItemIcon;
 
     void Update()
     {
@@ -20,6 +21,7 @@ public class Player_Interaction : MonoBehaviour
         }
         if(other.CompareTag("Health Item") && healthItemEquipped == false){
             healthItemEquipped = true;
+            healthItemIcon.SetActive(true);
             Destroy(other.gameObject);
         }
     }
@@ -38,5 +40,6 @@ public class Player_Interaction : MonoBehaviour
     void UseHealthItem(){
         gameObject.GetComponent<Player_Health>().playerHealth += 10f;
         healthItemEquipped = false;
+        healthItemIcon.SetActive(false);
     }
 }

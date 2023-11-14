@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Raycast_Gun : MonoBehaviour
 {
     public float gunDamage, gunRange, fireRate, reloadTime;
     public int magSize, currentAmmo, reserveAmmo, impactForce;
-    public GameObject firePoint;
+    public GameObject firePoint, impactEffect;
+    public ParticleSystem muzzleFlash;
+    public TMP_Text ammoText;
 
     private float nextFire;
 
@@ -19,7 +22,7 @@ public class Raycast_Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1") && Time.time > nextFire && currentAmmo > 0){
+        if(Input.GetButton("Fire1") && Time.time > nextFire && currentAmmo > 0){
             Shoot();
             currentAmmo--;
         }
@@ -32,10 +35,13 @@ public class Raycast_Gun : MonoBehaviour
             reserveAmmo = reserveAmmo + currentAmmo;
             currentAmmo = 0;
         }
+        ammoText.SetText(currentAmmo.ToString() + " / " + reserveAmmo.ToString());
     }
 
 
     void Shoot(){
+        muzzleFlash.Play();
+
         RaycastHit hit;
         nextFire = Time.time + fireRate;
         if(Physics.Raycast(firePoint.transform.position, firePoint.transform.forward, out hit, gunRange)){
@@ -47,7 +53,11 @@ public class Raycast_Gun : MonoBehaviour
             if(hit.rigidbody != null){
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
+
+            GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(impactGO, 2f);
         }
+
     }
 
     void Reload(){
