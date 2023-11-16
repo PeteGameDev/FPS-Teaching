@@ -7,8 +7,10 @@ public class Raycast_Gun : MonoBehaviour
 {
     public float gunDamage, gunRange, fireRate, reloadTime;
     public int magSize, currentAmmo, reserveAmmo, impactForce;
-    public GameObject firePoint, impactEffect;
+
+    public GameObject impactEffect;
     public ParticleSystem muzzleFlash;
+    
     public TMP_Text ammoText;
 
     private float nextFire;
@@ -44,7 +46,7 @@ public class Raycast_Gun : MonoBehaviour
 
         RaycastHit hit;
         nextFire = Time.time + fireRate;
-        if(Physics.Raycast(firePoint.transform.position, firePoint.transform.forward, out hit, gunRange)){
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, gunRange)){
             Debug.Log(hit.transform.name);
             Enemy_Target target = hit.transform.GetComponent<Enemy_Target>();
             if(target != null){
