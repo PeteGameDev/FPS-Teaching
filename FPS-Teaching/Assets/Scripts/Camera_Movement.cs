@@ -17,7 +17,7 @@ public class Camera_Movement : MonoBehaviour
     void Update()
     {
         CameraMove();
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     void CameraMove(){
