@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_Spawn : MonoBehaviour
 {
-    public GameObject enemyToSpawn;
+    public GameObject[] enemyToSpawn;
 
     public float spawnRate;
 
@@ -15,6 +15,6 @@ public class Enemy_Spawn : MonoBehaviour
     }
 
     void Spawn(){
-        Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
+        Instantiate(enemyToSpawn[Random.Range(0, enemyToSpawn.Length)], transform.position, Quaternion.identity);
     }
 }
