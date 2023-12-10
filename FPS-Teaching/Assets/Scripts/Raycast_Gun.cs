@@ -48,7 +48,7 @@ public class Raycast_Gun : MonoBehaviour
         nextFire = Time.time + fireRate;
         if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, gunRange)){
             Debug.Log(hit.transform.name);
-            Enemy_Target target = hit.transform.GetComponent<Enemy_Target>();
+            Basic_Enemy target = hit.transform.GetComponent<Basic_Enemy>();
             if(target != null){
                 target.TakeDamage(gunDamage);
             }

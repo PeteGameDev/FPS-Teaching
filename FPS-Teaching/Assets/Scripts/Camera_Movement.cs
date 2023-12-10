@@ -12,12 +12,14 @@ public class Camera_Movement : MonoBehaviour
     private float rotationX = 0f;
     private float rotationY = 0f;
     
+    void Start(){
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     // Update is called once per frame
     void Update()
     {
         CameraMove();
-        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     void CameraMove(){

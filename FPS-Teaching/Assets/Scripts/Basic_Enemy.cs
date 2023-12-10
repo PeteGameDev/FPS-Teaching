@@ -5,9 +5,12 @@ using UnityEngine.AI;
 
 public class Basic_Enemy : MonoBehaviour
 {   
-    public float damageAmount, attackDelay, attackRate, attackDistance;
+    public float damageAmount, attackDelay, attackRate, attackDistance, health;
+    public Animator anims;
     GameObject playerObject;
     NavMeshAgent navAgent;
+
+    
 
     void Start()
     {
@@ -24,16 +27,36 @@ public class Basic_Enemy : MonoBehaviour
             }
         }
         else navAgent.destination = transform.position;
+        if(health <= 0f){
+            Die();
+        }
     }
 
     void Attack(){
         //Melee Attack
         playerObject.GetComponent<Player_Health>().playerHealth -= damageAmount;
         attackDelay = Time.time + attackRate;
+        anims.SetBool("isRunning", false);
+        anims.SetBool("isAttacking", true);
+        
     }
 
     void Move(){
         navAgent.destination = playerObject.transform.position;
+        anims.SetBool("isRunning", true);
+        anims.SetBool("isAttacking", false);
+    }
+    
+
+    public void TakeDamage(float amount){
+        health -= amount;
+        
+    }
+
+    void Die(){
+        anims.SetBool("isDead", true);
+        navAgent.destination = transform.position;
+        Destroy(gameObject, 2f);
     }
 }
 
