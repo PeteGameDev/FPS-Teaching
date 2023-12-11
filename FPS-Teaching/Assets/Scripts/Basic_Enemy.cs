@@ -56,7 +56,7 @@ public class Basic_Enemy : MonoBehaviour
     void Die(){
         anims.SetBool("isDead", true);
         navAgent.destination = transform.position;
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 5f);
     }
 }
 
