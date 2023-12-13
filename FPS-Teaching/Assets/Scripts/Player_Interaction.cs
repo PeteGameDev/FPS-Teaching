@@ -5,7 +5,10 @@ using UnityEngine;
 public class Player_Interaction : MonoBehaviour
 {
     bool healthItemEquipped = false;
-    public GameObject healthItemIcon;
+    bool fireOn = false;
+    //public GameObject healthItemIcon;
+    
+    public ParticleSystem firePS;
 
     void Update()
     {
@@ -21,17 +24,18 @@ public class Player_Interaction : MonoBehaviour
         }
         if(other.CompareTag("Health Item") && healthItemEquipped == false){
             healthItemEquipped = true;
-            healthItemIcon.SetActive(true);
+            //healthItemIcon.SetActive(true);
             Destroy(other.gameObject);
         }
     }
 
     void OnTriggerStay(Collider other){
-        /*
-        if(other.CompareTag("Door") && Input.GetKeyDown(KeyCode.E)){
-            Destroy(other.gameObject);
-            //alternatively play animation etc
-        }*/
+        
+        if(other.CompareTag("Fire") && Input.GetKey(KeyCode.F) && fireOn != true){
+            firePS.Play();
+            fireOn = true;
+        }
+
         if(other.CompareTag("Spike Hazard")){
             gameObject.GetComponent<Player_Health>().playerHealth--;
         }
@@ -40,6 +44,6 @@ public class Player_Interaction : MonoBehaviour
     void UseHealthItem(){
         gameObject.GetComponent<Player_Health>().playerHealth += 10f;
         healthItemEquipped = false;
-        healthItemIcon.SetActive(false);
+        //healthItemIcon.SetActive(false);
     }
 }

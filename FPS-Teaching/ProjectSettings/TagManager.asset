@@ -8,6 +8,7 @@ TagManager:
   - Spike Hazard
   - Health Item
   - SpawnPoints
+  - Fire
   layers:
   - Default
   - TransparentFX
